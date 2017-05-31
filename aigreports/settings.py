@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'emr',
     'hrms',
-    'django_python3_ldap'
+    'django_python3_ldap',
+
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,9 @@ ROOT_URLCONF = 'aigreports.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -198,3 +201,5 @@ LOGGING = {
         },
     },
 }
+
+LOGIN_REDIRECT_URL = '/'
