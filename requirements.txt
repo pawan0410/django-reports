@@ -4,6 +4,7 @@ django-filter==1.0.4
 django-mssql==1.8
 django-pymssql==1.7.1
 django-python3-ldap==0.9.14
+django-suit==0.2.25
 djangorestframework==3.6.3
 ldap3==2.2.0
 Markdown==2.6.8
