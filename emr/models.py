@@ -50,7 +50,7 @@ class ResourceGroup(models.Model):
 
     class Meta:
         ordering = ('name',)
-        
+
 
 class AppointmentTypeGroup(models.Model):
     name = models.CharField(max_length=255)
@@ -64,16 +64,16 @@ class AppointmentTypeGroup(models.Model):
 
 
 class ResourceUtilizationSlots(models.Model):
-    name = models.CharField(max_length=255)
-    resource_id = models.IntegerField()
+    resource_id = models.ForeignKey(Resource)
     monday = models.IntegerField()
     tuesday = models.IntegerField()
     wednesday = models.IntegerField()
     thursday = models.IntegerField()
     friday = models.IntegerField()
+    
 
     def __str__(self):
-        return self.name
+        return "{} ".format(self.resource_id.name)
 
     class Meta:
         verbose_name_plural = 'Resource Utilization Slots'

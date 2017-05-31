@@ -19,9 +19,14 @@ class AdminResource(admin.ModelAdmin):
     def has_add_permission(self, request):
         return
 
+
 class AdminAppointmentType(admin.ModelAdmin):
     def has_add_permission(self, request):
         return
+
+
+class AdminResourceUtilizationSlots(admin.ModelAdmin):
+    list_display = ('resource_id', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday')
 
 admin.site.register(Status, AdminStatus)
 admin.site.register(StatusGroup)
@@ -30,5 +35,5 @@ admin.site.register(ResourceGroup)
 admin.site.register(AppointmentType, AdminAppointmentType)
 admin.site.register(AppointmentTypeGroup)
 
-admin.site.register(ResourceUtilizationSlots)
+admin.site.register(ResourceUtilizationSlots, AdminResourceUtilizationSlots)
 

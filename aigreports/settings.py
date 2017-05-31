@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,7 +61,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'emr', 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -203,3 +205,7 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'AIG Business Solutions Pvt Ltd.'
+}
