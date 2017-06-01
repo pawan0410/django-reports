@@ -1,6 +1,89 @@
-<h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<html>
+<head>
+    <title>AIG Business Solutions Pvt Ltd.</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'reset-css/reset.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <style>
+        body{
+            background: url({% static 'images/home-bg.jpg' %}) top left;
+            background-size:cover;
+        }
+        .panel-default>.panel-heading{
+            background-image: -webkit-linear-gradient(#83b3c3, #5295b0);
+        }
+        .panel-title{
+            color:#fff;
+        }
+        address{
+            font-style:italic;
+            font-size:12px;
+        }
+        label{
+            font-size:13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid container">
+    <div class="row">&nbsp;</div>
+</div>
+
+<div class="container-fluid container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 right_panel">
+            <div class="row ">
+                <div class="col-sm-12">
+                    <img src="{%static 'images/logo.png'%}" class="img img-responsive" width="210">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+            {% if form.errors %}
+                <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Sign in</h1>
+                </div>
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"><span class="glyphicon glyphicon-user"></span> &nbsp; Username</label>
+                            <div class="col-sm-9"><input type="text" name="username" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"><span class="glyphicon glyphicon-cog"></span> &nbsp;Password</label>
+                            <div class="col-sm-9"><input type="password" name="password" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;Sign in</button>
+                                &nbsp;&nbsp;<a href="#">Forgot password ?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+
+                    <p class="footer_text">
+                        <em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright &copy; 2017. AIG Business Solutions Pvt Ltd.</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
