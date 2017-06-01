@@ -57,7 +57,7 @@ class AppointmentTypeGroup(models.Model):
     appointment_type_id = models.ManyToManyField(AppointmentType)
 
     def __str__(self):
-        return self.name
+        return "{}".format(self.name)
 
     class Meta:
         ordering = ('name',)
