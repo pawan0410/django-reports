@@ -57,7 +57,7 @@ def flatten_seen_statuses():
 
 class SeenPatients:
 
-    def __init__(self, from_date, to_date, resource_group_id, appointment_group_id):
+    def __init__(self, from_date, to_date, resource_group_id, appointment_group_id,include_holidays=False):
         self.from_date = from_date
         self.to_date = to_date
         self.resources = get_resources_by_group_id(resource_group_id)
@@ -65,6 +65,7 @@ class SeenPatients:
         self.status_all = flatten_seen_statuses()
         self.resources_slots = get_resource_utilization_slots()
         self.resources_all = get_resource()
+        self.include_holidays = include_holidays
 
     def sql_query(self):
         query = """
@@ -137,7 +138,7 @@ class SeenPatients:
                     'status': st['status']
                 })
 
-            return studies_by_date, studies_seen
+            return studies_by_date, studies_seen ,studies
 
     def total_slots_for_day(self, week_number, week_day, week_str, resources_slots, resource_id):
         if (self.from_date + datetime.timedelta(days=week_number)).isoweekday() in [6, 7]:
@@ -150,26 +151,69 @@ class SeenPatients:
                 return 0
 
     def get_total_confirmed_studies(self):
-        _, studies_seen = self.study_details()
+        _, studies_seen,_ = self.study_details()
         return sum([len(studies_seen[int(i)]) for i in self.status_all])
 
+    def days_taken_for_studies(self):
+        t1 = datetime.datetime.strptime(self.from_date, '%Y-%m-%d')
+        t2 = datetime.datetime.strptime(self.to_date, '%Y-%m-%d')
 
+        total_requested_days = (t2 - t1).days + 1
+        studies_by_date, _ ,_= self.study_details()
 
+        days_taken_for_studies = len(studies_by_date)
+        if self.include_holidays and days_taken_for_studies < total_requested_days:
+            days_taken_for_studies += total_requested_days - days_taken_for_studies
+        return days_taken_for_studies
 
+    def reports(self):
 
+        number_of_confirmed_studies = self.get_total_confirmed_studies()
+        total_slots_for_days = self.total_slots_for_day()
+        output = self.get_rows_from_query()
+        studies_by_date, _, _ = self.study_details()
+        _,_,studies = self.study_details()
+        results = []
+        for item, value in output.items():
 
+            try:
+                utilization = (number_of_confirmed_studies * 100) // total_slots_for_days
+            except ZeroDivisionError:
+                utilization = 0
 
+            if utilization <= 79:
+                color_code, text_color = '#d9534f', 'white'
+            elif (utilization >= 80) and (utilization <= 89):
+                color_code, text_color = '#ffe14b', 'black'
+            elif utilization >= 90:
+                color_code, text_color = '#3c903d', 'white'
 
+            try:
+                scheduled_percentage = (len(value) * 100) // total_slots_for_days
+            except ZeroDivisionError:
+                scheduled_percentage = 0
 
+            try:
+                seen_percentage = (number_of_confirmed_studies * 100) // len(value)
+            except ZeroDivisionError:
+                seen_percentage = 0
 
+            results.append({
+                'ResourceID': item,
+                'ResourceName': self.resources_all[item],
+                'TotalStudies': len(value),
+                'Studies': studies[item],
+                'studies_by_date': studies_by_date,
+                'utilization': '{0}%'.format(utilization),
+                'scheduled_percentage': '{0}%'.format(scheduled_percentage),
+                'number_of_confirmed_studies': number_of_confirmed_studies,
+                'seen_percentage': '{0}%'.format(seen_percentage),
+                'total_slots_in_a_day': total_slots_for_days,
+                'color_code': color_code,
+                'text_color': text_color
+            })
 
-
-
-
-
-
-
-
+        return results
 
 
 def appointments(from_date, to_date, resource_group_id=None, appointment_group_id=None, include_holidays=False):
