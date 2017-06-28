@@ -20,3 +20,4 @@ def load_status_into_table():
     for row, v in rows.items():
         s = Status(original_id=row, name=v)
         s.save()
+

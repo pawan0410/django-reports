@@ -208,7 +208,7 @@ LOGGING = {
     },
 }
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/admin'
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'AIG Business Solutions Pvt Ltd.'

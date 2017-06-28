@@ -2,9 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Patient's Report</title>
 </head>
 <body>
+    <div id="app">
+        <img src="/static/images/logo.png" width="160" height="60" class="pull-right">
+        <div class="index container-fluid">
+            <div class="page-header">
+                <h2 class="page-title">Patient's Report</h2>
 
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active">
+                            <a href="#overview" data-toggle="pill">Overview</a>
+
+                        </li>
+                        <li role="presentation">
+                            <a href="#resources_group" data-toggle="pill">Resources Group</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#appointments" data-toggle="pill">Appointments</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#resources_slots" data-toggle="pill">Slots</a>
+
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="tab-content">
+                        <div role="tabpanel" id="overview" class="tab-pane active">
+                            <div class="overview_tab">
+                                <div class="well clearfix">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label >Days
+
+                                            </label>
+                                            <select class="form-control">
+                                                <option value="--">--Select--</option>
+                                                <option value="Current week">Current week</option>
+                                                <option value="Yesterday">Yesterday</option>
+                                                <option value="Last 5 days">Last 5 days</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>From</label>
+                                            <input type="date" id="from_date" class="form-control">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>To</label>
+                                            <input type="date" id="to_date" class="form-control">
+                                        </div>
+                                        <input type="checkbox">
+                                    </form>
+
+                                </div>
+                                <ul role="tablist" class="nav nav-tabs">
+                                    <li role="presentation" class="active">
+                                        <a href="#3" aria-controls="home" role="tab" data-toggle="tab" class="resource_group_tab">Doctors</a>
+
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#4" aria-controls="home" role="tab" data-toggle="tab" class="resource_group_tab">NPs</a>
+
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#5" aria-controls="home" role="tab" data-toggle="tab" class="resource_group_tab">Techs</a>
+
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" id="3" class="tab-pane active">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <span class="label label-primary">2017-06-19</span>
+                                                        <span class="label label-primary">2017-06-23</span>
+
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <select class="form-control">
+                                                            <option value="1">Others</option>
+                                                            <option value="2">Visits</option>
+                                                            <option value="3">Test</option>
+                                                            <option value="4">Procedures</option>
+                                                            <option value="5">Same Day New Patients Seen</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Resource name</th>
+                                                            <th>No. of slots</th>
+                                                            <th>No. of schedule</th>
+                                                            <th>Patients seen</th>
+                                                            <th>Utilization</th>
+                                                            <th>Schedule rate</th>
+                                                            <th>Show rate</th>
+                                                            <th>Reasons</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+
+                                                        </tr>
+                                                        </tbody>
+                                                        <tbody>
+                                                        <tr>
+
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr style="font-weight: bold;">
+                                                            <td>Total</td>
+                                                            <td>
+                                                                <span class="badge"></span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge"></span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge"></span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge"></span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge"></span>
+                                                            </td>
+
+                                                        </tr>
+                                                        </tfoot>
+
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
 </body>
 </html>

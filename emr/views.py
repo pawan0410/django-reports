@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from mssql.appointments import appointments
 
 # Create your views here.
 
