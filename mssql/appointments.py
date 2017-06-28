@@ -217,6 +217,7 @@ class SeenPatients:
 
 
 def appointments(from_date, to_date, resource_group_id=None, appointment_group_id=None, include_holidays=False):
+
     """ This method returns the appointments of resources
     in key - value form
     """
@@ -255,6 +256,16 @@ def appointments(from_date, to_date, resource_group_id=None, appointment_group_i
 
     results = []
     rows = EMRSQLServer().execute_query(query)
+
+    if resources:
+        query += " AND A.RESOURCEID IN (%s)" % ','.join([str(r) for r in resources])
+
+    query += " ORDER BY A.STARTTIME"
+    results = []
+    if not EMRSQLServer.connection():
+        return results
+
+    rows = EMRSQLServer.execute_query(query)
 
     output = defaultdict(list)
     for row in rows:
@@ -339,6 +350,8 @@ def appointments(from_date, to_date, resource_group_id=None, appointment_group_i
             utilization = (number_of_confirmed_studies * 100) // total_slots_for_days
         except ZeroDivisionError:
             utilization = 0
+        total_slots_for_days = resources_slots[item] * days_taken_for_studies
+        utilization = (number_of_confirmed_studies * 100) // total_slots_for_days
 
         if utilization <= 79:
             color_code, text_color = '#d9534f', 'white'
@@ -367,6 +380,9 @@ def appointments(from_date, to_date, resource_group_id=None, appointment_group_i
             'scheduled_percentage': '{0}%'.format(scheduled_percentage),
             'number_of_confirmed_studies': number_of_confirmed_studies,
             'seen_percentage': '{0}%'.format(seen_percentage),
+            'scheduled_percentage': '{0}%'.format((len(value) * 100) // total_slots_for_days),
+            'number_of_confirmed_studies': number_of_confirmed_studies,
+            'seen_percentage': '{0}%'.format((number_of_confirmed_studies * 100) // len(value)),
             'total_slots_in_a_day': total_slots_for_days,
             'color_code': color_code,
             'text_color': text_color

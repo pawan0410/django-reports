@@ -1,0 +1,40 @@
+.login_table{
+    box-shadow: 0px 2px 6px 0px #fff;
+    width:100%;
+}
+.login_table caption{
+    text-align: left;
+    padding:10px 0px 10px 0px;
+    font-weight:bold;
+    border-bottom:1px solid;
+    margin-bottom:6px;
+    color:#b4ff5e;
+}
+
+.login_table tr td {
+    padding:6px;
+}
+
+td.label{
+    color:#fff;
+    width:60px;
+}
+
+td.form-control input{
+    width:250px;
+    height:30px;
+    padding:6px;
+}
+td.submit_btn_row{
+    vertical-align: middle;
+}
+body{
+    background: #348F50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #56B4D3, #348F50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+td.submit_btn_row button{
+    width: 80px;
+    height: 30px;
+}

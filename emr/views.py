@@ -9,6 +9,7 @@ from emr.models import AppointmentTypeGroup
 from emr.models import AppointmentType
 from emr.models import Resource
 from django.http import HttpResponse, JsonResponse
+from mssql.appointments import appointments
 
 # Create your views here.
 

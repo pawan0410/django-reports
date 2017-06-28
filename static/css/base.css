@@ -1,0 +1,16 @@
+*, body, html{
+    font-family: 'Lato', sans-serif;
+}
+
+.footer_login{
+    margin-top: 20px;
+    margin-bottom:20px;
+    position:absolute;
+    bottom:0;
+}
+
+.footer_text{
+    font-size:14px;
+    padding:12px;
+    text-align:center;
+}

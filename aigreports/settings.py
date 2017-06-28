@@ -133,6 +133,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 
 # The URL of the LDAP server.
 LDAP_AUTH_URL = 'ldap://192.168.8.2:389'
@@ -204,7 +208,7 @@ LOGGING = {
     },
 }
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/admin'
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'AIG Business Solutions Pvt Ltd.'
