@@ -23,72 +23,9 @@ tr:nth-child(even) {
 
     </style>
 
+
 </head>
-<div class="container">
-    <label><b>Days</b></label>
-    <select>
-        <option value="Current Week">Current Week</option>
-        <option value="Yesterday">Yesterday</option>
-        <option value="Last 5 Days">Last 5 Days</option>
-    </select>
-    <form method="post">
-
-        <label><b>From</b></label>
-        <input type="date" name="fromdate">
-
-        <label><b>To</b></label>
-        <input type="date" name="todate">
-
-        <input type="checkbox" checked="checked"> Include Holidays
-
-    </form>
-</div>
-
-<div>
-    <table style="width:100%">
-        <tr>
-            <th>Resource Name</th>
-            <th>No. of Slots</th>
-            <th>No. of schedule</th>
-            <th>Patients seen</th>
-            <th>Utilization</th>
-            <th>Schedule rate</th>
-            <th>Show rate</th>
-
-
-        </tr>
-
-    </table>
-</div>
-    <div id="app">
-        <img src="/static/images/logo.png" width="160" height="60" class="pull-right">
-        <div class="index container-fluid">
-            <div class="page-header">
-                <h2 class="page-title">Patient's Report</h2>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <ul class="nav nav-pills">
-                        <li role="presentation" class="active">
-                            <a href="#overview" data-toggle="pill">Overview</a>
-
-                        </li>
-                        <li role="presentation">
-                            <a href="#resources_group" data-toggle="pill">Resources Group</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#appointments" data-toggle="pill">Appointments</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#resources_slots" data-toggle="pill">Slots</a>
-
-                        </li>
-
-                    </ul>
-                </div>
-
-            </div>
-            <hr>
+<body>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="tab-content">
@@ -117,7 +54,7 @@ tr:nth-child(even) {
                                             <label>To</label>
                                             <input type="date" id="to_date" class="form-control">
                                         </div>
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="include_holidays" value="1">
                                     </form>
 
                                 </div>
@@ -142,13 +79,13 @@ tr:nth-child(even) {
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-sm-8">
-                                                        <span class="label label-primary">2017-06-19</span>
+                                                        <span class="label label-primary"></span>
                                                         <span class="label label-primary">2017-06-23</span>
 
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <select class="form-control">
-                                                            <option value="1">Others</option>
+                                                        <select class="form-control" id="appointment_group_id">
+                                                            <option value="1"></option>
                                                             <option value="2">Visits</option>
                                                             <option value="3">Test</option>
                                                             <option value="4">Procedures</option>
@@ -159,23 +96,6 @@ tr:nth-child(even) {
                                                     </div>
 
                                                 </div>
-
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Resource name</th>
-                                                            <th>No. of slots</th>
-                                                            <th>No. of schedule</th>
-                                                            <th>Patients seen</th>
-                                                            <th>Utilization</th>
-                                                            <th>Schedule rate</th>
-                                                            <th>Show rate</th>
-                                                            <th>Reasons</th>
-                                                        </tr>
-                                                        </thead>
                                                         <tbody>
                                                         <tr>
 
@@ -210,7 +130,24 @@ tr:nth-child(even) {
 
                                                     </table>
 
-                                                </div>
+
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Resource name</th>
+                                                            <th>No. of slots</th>
+                                                            <th>No. of schedule</th>
+                                                            <th>Patients seen</th>
+                                                            <th>Utilization</th>
+                                                            <th>Schedule rate</th>
+                                                            <th>Show rate</th>
+                                                            <th>Reasons</th>
+                                                        </tr>
+                                                        </thead>
+       </div>
 
                                             </div>
 
@@ -237,4 +174,32 @@ tr:nth-child(even) {
 
     </div>
 </body>
+ <script>
+
+        function loadReport(to_date, from_date, include_holidays, resource_group_id, appointment_group_id) {
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  //
+                }
+              };
+
+              url = "/emr/api/get_reports/";
+
+              xhttp.open("POST", url, true);
+              xhttp.setRequestHeader("Content-Type", "application/json");
+              xhttp.setRequestHeader("X-CSRFToken", "{% csrf_token %}");
+              xhttp.send(JSON.stringify({to_date: to_date, from_date: from_date, include_holidays:include_holidays, resource_group_id:resource_group_id, appointment_group_id:appointment_group_id}));
+        }
+
+        document.getElementById('to_date').addEventListener('change', function(e){
+                to_date = document.getElementById('to_date').value;
+                from_date = document.getElementById('from_date').value;
+                include_holidays = document.getElementById('include_holidays').value;
+                resource_group_id =  3;
+                appointment_group_id = document.getElementById('appointment_group_id').value;
+
+                loadReport(to_date, from_date, include_holidays, resource_group_id, appointment_group_id);
+        });
+   </script>
 </html>

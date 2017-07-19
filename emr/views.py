@@ -86,11 +86,23 @@ def get_appointment_type_group(request):
     serializer = AppointmentTypeGroupSerializer(get_appointment_type_groups,many=True)
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def get_reports(request):
-#     appointments_s = ResourceGroup.objects.all()
-#     serializer = ResourceGroupSerializer(resource_groups, many=True)
-#     return Response(serializer.data)
+
+@api_view(['POST'])
+def get_reports(request):
+    data = request.json
+    from_date = data['from_date']
+    to_date  = data['to_date']
+    include_holidays = data['include_holidays']
+    resource_group_id = data['resource_group_id']
+    appointment_group_id = data['appointment_group_id']
+    results = appointments(
+        from_date,
+        to_date,
+        resource_group_id,
+        appointment_group_id,
+        include_holidays
+    )
+    return Response(results)
 
 
 
